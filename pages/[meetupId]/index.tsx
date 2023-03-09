@@ -27,7 +27,7 @@ export default MeetUpDetailPage;
 
 export async function getStaticPaths() {
   const client = await MongoClient.connect(
-    "mongodb+srv://quingsley:3ceHwlZoNfB6sbUG@cluster0.hkxyhxj.mongodb.net/meetups?retryWrites=true"
+    `mongodb+srv://quingsley:${process.env.DB_PASSWORD}@cluster0.hkxyhxj.mongodb.net/meetups?retryWrites=true`
   );
 
   const db = client.db();
@@ -47,7 +47,7 @@ export async function getStaticPaths() {
     .toArray();
   client.close();
   return {
-    fallback: 'blocking',
+    fallback: "blocking",
     paths: meetups.map((meetup) => {
       return {
         params: {
@@ -63,7 +63,7 @@ export async function getStaticProps(context: {
 }) {
   const meetupId = context.params.meetupId;
   const client = await MongoClient.connect(
-    "mongodb+srv://quingsley:3ceHwlZoNfB6sbUG@cluster0.hkxyhxj.mongodb.net/meetups?retryWrites=true"
+    `mongodb+srv://quingsley:${process.env.DB_PASSWORD}@cluster0.hkxyhxj.mongodb.net/meetups?retryWrites=true`
   );
 
   const db = client.db();
